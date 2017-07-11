@@ -1,0 +1,10 @@
+network.host: 0.0.0.0
+discovery.zen.minimum_master_nodes: 1
+bootstrap.memory_lock: true
+transport.tcp.port: 9200
+http.port: 9200
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.max_content_length: 1000mb
+indices.recovery.max_bytes_per_sec: 100mb
+
