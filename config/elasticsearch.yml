@@ -1,7 +1,7 @@
 network.host: 0.0.0.0
 discovery.zen.minimum_master_nodes: 1
 bootstrap.memory_lock: true
-transport.tcp.port: 9200
+transport.tcp.port: 9300
 http.port: 9200
 http.cors.enabled: true
 http.cors.allow-origin: "*"
