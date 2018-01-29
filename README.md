@@ -34,6 +34,9 @@ CK_BASEURL="https://kibana.conditor.fr" \
 make run-prod
 ```
 
+<u>Note : </u>
+
+"rp" container in production mode relies on the [conditor/conditores-rp](https://registry.hub.docker.com/u/conditor/conditores-rp/) image, hosted on Docker Hub.
 
 
 ## Building & deploying "rp" docker image
