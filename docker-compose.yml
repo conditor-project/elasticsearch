@@ -59,7 +59,7 @@ services:
   # (nginx reverse proxy dedicated to admin authentication stuff)
   rp:
     container_name: conditor-nginx
-    image: conditor/conditores-rp:1.0.0
+    image: conditor/conditores-rp:1.0.1
     environment:
       CK_BASEURL: ${CK_BASEURL}
       CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
