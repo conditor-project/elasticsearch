@@ -72,7 +72,7 @@ services:
     ports:
       - 8081:80
     links:
-      - kibana # à Voir....................................;;
+      - kibana
     networks:
       - esnet
     volumes:

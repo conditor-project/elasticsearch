@@ -59,12 +59,7 @@ services:
   # (nginx reverse proxy dedicated to admin authentication stuff)
   rp:
     container_name: conditor-nginx
-    build:
-      context: ./rp
-      args:
-        - http_proxy
-        - https_proxy
-    image: conditor/conditores-rp:0.9.9
+    image: conditor/conditores-rp:1.0.0
     environment:
       CK_BASEURL: ${CK_BASEURL}
       CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
@@ -72,13 +67,11 @@ services:
     ports:
       - 8081:80
     links:
-      - kibana # à Voir....................................;;
+      - kibana
     networks:
       - esnet
     volumes:
       - ./logs/rp/:/var/log/nginx/
-      - ./rp/entrypoint-create-credentials:/bin/entrypoint-create-credentials
-      - ./rp/nginx.debug.conf:/etc/nginx/nginx.conf
     restart: "on-failure:3"
 
 
