@@ -1,0 +1,88 @@
+version: '2'
+services:
+
+  # Elasticsearch search engine
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.1
+    restart: "on-failure:3"
+    container_name: conditor-elasticsearch
+    environment:
+      - cluster.name=conditores-dev
+      - node.name=conditores-master
+      - node.master=true
+      - node.data=true
+      - http_proxy
+      - https_proxy
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "xpack.security.enabled=false"
+      - "xpack.monitoring.enabled=true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - ./data:/usr/share/elasticsearch/data
+      - ./logs/elasticsearch:/usr/share/elasticsearch/logs
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./config/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
+
+    networks:
+      - esnet
+
+  # Kibana dashboard interface
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.1.1
+    restart: "on-failure:3"
+    container_name: conditor-kibana
+    environment:
+      - "xpack.security.enabled=false"
+      - "xpack.monitoring.enabled=true"
+      - "xpack.reporting.enabled=false"
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    links:
+      - elasticsearch
+    volumes:
+      - ./logs/kibana:/var/log/kibana
+    ports:
+      - 5601:5601
+    networks:
+      - esnet
+
+
+  # enduser entrypoint
+  # (nginx reverse proxy dedicated to admin authentication stuff)
+  rp:
+    container_name: conditor-nginx
+    build:
+      context: ./rp
+      args:
+        - http_proxy
+        - https_proxy
+    image: conditor/conditores-rp:0.9.9
+    environment:
+      CK_BASEURL: ${CK_BASEURL}
+      CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
+      CK_ADMIN_PASSWORD: ${CK_ADMIN_PASSWORD}
+    ports:
+      - 8081:80
+    links:
+      - kibana # à Voir....................................;;
+    networks:
+      - esnet
+    volumes:
+      - ./logs/rp/:/var/log/nginx/
+      - ./rp/entrypoint-create-credentials:/bin/entrypoint-create-credentials
+      - ./rp/nginx.debug.conf:/etc/nginx/nginx.conf
+    restart: "on-failure:3"
+
+
+networks:
+  esnet:
+    driver: bridge
+
