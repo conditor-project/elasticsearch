@@ -7,4 +7,5 @@ http.cors.enabled: true
 http.cors.allow-origin: "*"
 http.max_content_length: 1000mb
 indices.recovery.max_bytes_per_sec: 100mb
+path.repo: /usr/share/elasticsearch/data/backup
 
