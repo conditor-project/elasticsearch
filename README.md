@@ -38,6 +38,10 @@ make run-prod
 
 "rp" container in production mode relies on the [conditor/conditores-rp](https://registry.hub.docker.com/u/conditor/conditores-rp/) image, hosted on Docker Hub.
 
+"elasticsearch" container in production mode relies on the [conditor/conditores-elasticsearch](https://registry.hub.docker.com/u/conditor/conditores-elasticsearch/) image, hosted on Docker Hub.
+
+## 
+
 
 ## Building & deploying "rp" docker image
 
@@ -51,5 +55,6 @@ Deploying on docker hub :
 
 ```shell
 docker push conditor/conditores-rp:<TAG_NO>
+docker push conditor/conditores-elasticsearch:<TAG_NO>
 ```
 
