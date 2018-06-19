@@ -3,7 +3,7 @@ services:
 
   # Elasticsearch search engine
   elasticsearch:
-    image: conditor/conditores-elasticsearch:1.0.0
+    image: conditor/conditores-elasticsearch:1.1.0
     restart: "on-failure:3"
     container_name: conditor-elasticsearch
     environment:
