@@ -11,7 +11,7 @@ services:
         - ES_JAVA_OPTS
         - http_proxy
         - https_proxy
-    image : conditor/conditores-elasticsearch:1.0.0
+    image : conditor/conditores-elasticsearch:1.1.0
     environment:
       - cluster.name=conditores-dev
       - node.name=conditores-master
