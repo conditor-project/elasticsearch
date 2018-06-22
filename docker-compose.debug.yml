@@ -70,7 +70,7 @@ services:
       args:
         - http_proxy
         - https_proxy
-    image: conditor/conditores-rp:1.0.2
+    image: conditor/conditores-rp:1.1.0
     environment:
       CK_BASEURL: ${CK_BASEURL}
       CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
