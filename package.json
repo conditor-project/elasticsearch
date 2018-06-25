@@ -1,0 +1,17 @@
+{
+  "name": "elasticsearch",
+  "version": "1.0.0",
+  "description": "Config files needed to start Elasticsearch Stack via Docker for Conditor Project",
+  "author": "Claude Niederlender",
+  "license": "SEE LICENSE IN Licence.txt",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:conditor-project/elasticsearch.git"
+  },
+  "keywords": [
+    "config",
+    "conditor",
+    "docker",
+    "elasticsearch"
+  ]
+}
