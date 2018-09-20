@@ -3,7 +3,7 @@ services:
 
   # Elasticsearch search engine
   elasticsearch:
-    image: conditor/conditores-elasticsearch:1.1.0
+    image: conditor/conditores-elasticsearch:1.2.0
     restart: "on-failure:3"
     container_name: conditor-elasticsearch
     environment:
@@ -37,7 +37,7 @@ services:
 
   # Kibana dashboard interface
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.3.0
+    image: docker.elastic.co/kibana/kibana:6.4.1
     restart: "on-failure:3"
     container_name: conditor-kibana
     environment:
