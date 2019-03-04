@@ -11,7 +11,7 @@ services:
         - ES_JAVA_OPTS
         - http_proxy
         - https_proxy
-    image : conditor/conditores-elasticsearch:6.5.4
+    image : conditor/conditores-elasticsearch:6.6.1
     environment:
       - cluster.name=conditores-dev
       - node.name=conditores-master
@@ -22,6 +22,9 @@ services:
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
       - "xpack.security.enabled=false"
       - "xpack.monitoring.enabled=true"
+      - "xpack.watcher.enabled=false"
+      - "xpack.ml.enabled=false"
+      - "xpack.graph.enabled=false"
     ulimits:
       memlock:
         soft: -1
@@ -43,13 +46,16 @@ services:
 
   # Kibana dashboard interface
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.5.4
+    image: docker.elastic.co/kibana/kibana:6.6.1
     restart: "on-failure:3"
     container_name: conditor-kibana
     environment:
       - "xpack.security.enabled=false"
       - "xpack.monitoring.enabled=true"
       - "xpack.reporting.enabled=false"
+      - "xpack.watcher.enabled=false"
+      - "xpack.ml.enabled=false"
+      - "xpack.graph.enabled=false"
       - ELASTICSEARCH_URL=http://elasticsearch:9200
     links:
       - elasticsearch
