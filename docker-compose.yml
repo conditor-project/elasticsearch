@@ -3,7 +3,7 @@ services:
 
   # Elasticsearch search engine
   elasticsearch:
-    image: conditor/conditores-elasticsearch:6.5.4
+    image: conditor/conditores-elasticsearch:6.6.1
     restart: "on-failure:3"
     container_name: conditor-elasticsearch
     environment:
@@ -16,6 +16,9 @@ services:
       - "ES_JAVA_OPTS=-Xms8g –Xmx8g"
       - "xpack.security.enabled=false"
       - "xpack.monitoring.enabled=true"
+      - "xpack.watcher.enabled=false"
+      - "xpack.ml.enabled=false"
+      - "xpack.graph.enabled=false"
       - "PUBLISH_IP=${PUBLISH_IP}"
       - "discovery.zen.ping.unicast.hosts=${discovery_zen}"
     ulimits:
@@ -39,13 +42,16 @@ services:
 
   # Kibana dashboard interface
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.5.4
+    image: docker.elastic.co/kibana/kibana:6.6.1
     restart: "on-failure:3"
     container_name: conditor-kibana
     environment:
       - "xpack.security.enabled=false"
       - "xpack.monitoring.enabled=true"
       - "xpack.reporting.enabled=false"
+      - "xpack.watcher.enabled=false"
+      - "xpack.ml.enabled=false"
+      - "xpack.graph.enabled=false"
       - ELASTICSEARCH_URL=http://elasticsearch:9200
     links:
       - elasticsearch
