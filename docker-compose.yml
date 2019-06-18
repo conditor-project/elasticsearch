@@ -32,8 +32,8 @@ services:
     volumes:
       - ./data:/usr/share/elasticsearch/data
       - ./logs/elasticsearch:/usr/share/elasticsearch/logs
-      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./config/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
+      - ${PWD}/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ${PWD}/config/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
 
     networks:
       - esnet
