@@ -8,5 +8,5 @@ http.cors.allow-origin: "*"
 http.max_content_length: 1000mb
 indices.recovery.max_bytes_per_sec: 100mb
 indices.query.bool.max_clause_count: 10240
-path.repo: /usr/share/elasticsearch/data/backup
+# path.repo: /usr/share/elasticsearch/data/backup
 

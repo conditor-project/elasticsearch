@@ -10,6 +10,7 @@ Config files needed to start Elasticsearch Stack via Docker for Conditor Project
 - [Docker](https://docs.docker.com/engine/installation/) (Version ⩾ 17.05.0)
 - [Docker Compose](https://docs.docker.com/compose/install/) (Version ⩾ 1.17.0)
 - vm.max_map_count ⩾ 262144 ([see elasticsearch doc](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode))
+- run `make install` command => create mandatory `./data` and `./logs` directory with user rights
 
 <u>Notes :</u>
 

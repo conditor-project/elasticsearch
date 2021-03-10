@@ -11,7 +11,7 @@ services:
         - ES_JAVA_OPTS
         - http_proxy
         - https_proxy
-    image : conditor/conditores-elasticsearch:6.6.1
+    image : conditor/conditores-elasticsearch:6.6.2
     environment:
       - cluster.name=conditores-dev
       - node.name=conditores-master
@@ -46,7 +46,7 @@ services:
 
   # Kibana dashboard interface
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.6.1
+    image: docker.elastic.co/kibana/kibana:6.6.2
     restart: "on-failure:3"
     container_name: conditor-kibana
     environment:

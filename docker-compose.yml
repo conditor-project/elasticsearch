@@ -3,7 +3,7 @@ services:
 
   # Elasticsearch search engine
   elasticsearch:
-    image: conditor/conditores-elasticsearch:6.6.1
+    image: conditor/conditores-elasticsearch:6.6.2
     restart: "on-failure:3"
     container_name: conditor-elasticsearch
     environment:
@@ -40,9 +40,11 @@ services:
 
   # Kibana dashboard interface
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.6.1
+    image: docker.elastic.co/kibana/kibana:6.6.2
     restart: "on-failure:3"
     container_name: conditor-kibana
+    depends_on: 
+      - elasticsearch
     environment:
       - "xpack.security.enabled=false"
       - "xpack.monitoring.enabled=true"
@@ -63,22 +65,22 @@ services:
 
   # enduser entrypoint
   # (nginx reverse proxy dedicated to admin authentication stuff)
-  rp:
-    container_name: conditor-nginx
-    image: conditor/conditores-rp:1.1.0
-    environment:
-      CK_BASEURL: ${CK_BASEURL}
-      CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
-      CK_ADMIN_PASSWORD: ${CK_ADMIN_PASSWORD}
-    ports:
-      - 8081:80
-    links:
-      - kibana
-    networks:
-      - esnet
-    volumes:
-      - ./logs/rp/:/var/log/nginx/
-    restart: "on-failure:3"
+  # rp:
+  #   container_name: conditor-nginx
+  #   image: conditor/conditores-rp:1.1.0
+  #   environment:
+  #     CK_BASEURL: ${CK_BASEURL}
+  #     CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
+  #     CK_ADMIN_PASSWORD: ${CK_ADMIN_PASSWORD}
+  #   ports:
+  #     - 8081:80
+  #   links:
+  #     - kibana
+  #   networks:
+  #     - esnet
+  #   volumes:
+  #     - ./logs/rp/:/var/log/nginx/
+  #   restart: "on-failure:3"
 
 
 networks:

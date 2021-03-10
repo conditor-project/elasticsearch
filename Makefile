@@ -7,6 +7,11 @@ NC=\033[0m
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+install: ## create necessary sub-directories (if not, docker will do itself as root, and elasticsearch won't start)
+	mkdir ./data
+	mkdir logs/elasticsearch
+	mkdir logs/kibana
+
 build: ## build localy docker images needed by CES (Conditor Elasticsearch Stack)
 	docker-compose -f ./docker-compose.debug.yml build
 
