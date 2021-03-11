@@ -4,17 +4,17 @@ services:
   # Elasticsearch search engine
   elasticsearch:
     restart: "on-failure:3"
-    container_name: conditor-elasticsearch
+    container_name: istex-elasticsearch-7
     build:
       context: ./elasticsearch
       args:
         - ES_JAVA_OPTS
         - http_proxy
         - https_proxy
-    image : conditor/conditores-elasticsearch:6.6.2
+    image : istex/istexes-elasticsearch:7.11.2
     environment:
-      - cluster.name=conditores-dev
-      - node.name=conditores-master
+      - cluster.name=istexes-dev
+      - node.name=istexes-master
       - node.master=true
       - node.data=true
       - http_proxy
@@ -46,9 +46,11 @@ services:
 
   # Kibana dashboard interface
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.6.2
+    image: docker.elastic.co/kibana/kibana:7.11.2
+    depends_on: 
+      - elasticsearch
     restart: "on-failure:3"
-    container_name: conditor-kibana
+    container_name: istex-kibana-7
     environment:
       - "xpack.security.enabled=false"
       - "xpack.monitoring.enabled=true"
@@ -69,29 +71,29 @@ services:
 
   # enduser entrypoint
   # (nginx reverse proxy dedicated to admin authentication stuff)
-  rp:
-    container_name: conditor-nginx
-    build:
-      context: ./rp
-      args:
-        - http_proxy
-        - https_proxy
-    image: conditor/conditores-rp:1.1.0
-    environment:
-      CK_BASEURL: ${CK_BASEURL}
-      CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
-      CK_ADMIN_PASSWORD: ${CK_ADMIN_PASSWORD}
-    ports:
-      - 8081:80
-    links:
-      - kibana
-    networks:
-      - esnet
-    volumes:
-      - ./logs/rp/:/var/log/nginx/
-      - ./rp/entrypoint-create-credentials:/bin/entrypoint-create-credentials
-      - ./rp/nginx.debug.conf:/etc/nginx/nginx.conf
-    restart: "on-failure:3"
+  # rp:
+  #   container_name: conditor-nginx
+  #   build:
+  #     context: ./rp
+  #     args:
+  #       - http_proxy
+  #       - https_proxy
+  #   image: conditor/istexes-rp:1.1.0
+  #   environment:
+  #     CK_BASEURL: ${CK_BASEURL}
+  #     CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
+  #     CK_ADMIN_PASSWORD: ${CK_ADMIN_PASSWORD}
+  #   ports:
+  #     - 8081:80
+  #   links:
+  #     - kibana
+  #   networks:
+  #     - esnet
+  #   volumes:
+  #     - ./logs/rp/:/var/log/nginx/
+  #     - ./rp/entrypoint-create-credentials:/bin/entrypoint-create-credentials
+  #     - ./rp/nginx.debug.conf:/etc/nginx/nginx.conf
+  #   restart: "on-failure:3"
 
 
 networks:

@@ -3,12 +3,12 @@ services:
 
   # Elasticsearch search engine
   elasticsearch:
-    image: conditor/conditores-elasticsearch:6.6.2
+    image: istex/istexes-elasticsearch:7.11.2
     restart: "on-failure:3"
-    container_name: conditor-elasticsearch
+    container_name: istex-elasticsearch-7
     environment:
-      - cluster.name=conditores-dev
-      - node.name=conditores-master
+      - cluster.name=istexes-dev
+      - node.name=istexes-master
       - node.master=true
       - node.data=true
       - http_proxy
@@ -40,9 +40,9 @@ services:
 
   # Kibana dashboard interface
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.6.2
+    image: docker.elastic.co/kibana/kibana:7.11.2
     restart: "on-failure:3"
-    container_name: conditor-kibana
+    container_name: istex-kibana-7
     depends_on: 
       - elasticsearch
     environment:
@@ -67,7 +67,7 @@ services:
   # (nginx reverse proxy dedicated to admin authentication stuff)
   # rp:
   #   container_name: conditor-nginx
-  #   image: conditor/conditores-rp:1.1.0
+  #   image: conditor/istexes-rp:1.1.0
   #   environment:
   #     CK_BASEURL: ${CK_BASEURL}
   #     CK_ADMIN_USERNAME: ${CK_ADMIN_USERNAME}
